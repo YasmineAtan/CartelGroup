@@ -3,11 +3,7 @@ package ch.fhnw.assignment1.cartelgroup;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.TreeItem;
-import model.Cone;
-import model.Scoop;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +14,7 @@ public class IceCreamController {
     @FXML private Button addScoopButton;
     @FXML private Button newConeButton;
     @FXML private Button finishOrderButton;
-    @FXML private Label lblOrderInfo; // Optional: if you have a label in your FXML
+    @FXML private Label lblOrderInfo;
 
     private List<Cone> cones = new ArrayList<>();
     private Cone currentCone;
@@ -27,7 +23,6 @@ public class IceCreamController {
 
     @FXML
     public void initialize() {
-        // Add predefined scoop flavors
         flavorCombo.getItems().addAll(
                 new Scoop("Vanilla", 2.50),
                 new Scoop("Chocolate", 2.80),
@@ -37,7 +32,6 @@ public class IceCreamController {
 
         startNewOrder();
 
-        // Button actions
         newConeButton.setOnAction(e -> createNewCone());
         addScoopButton.setOnAction(e -> addScoopToCone());
         finishOrderButton.setOnAction(e -> printReceipt());
@@ -47,15 +41,12 @@ public class IceCreamController {
         cones.clear();
         currentCone = null;
 
-        // Create order info
-        String time = LocalDateTime.now().format(DateTimeFormatter.ofPattern("EEE dd MMM HH:mm yyyy"));
-        String orderLabel = "Order #" + orderCount + " - " + time;
+        String orderLabel = "Order #" + orderCount;
+        lblOrderInfo.setText(orderLabel);
 
         rootItem = new TreeItem<>(orderLabel);
         coneTree.setRoot(rootItem);
         coneTree.setShowRoot(true);
-
-        if (lblOrderInfo != null) lblOrderInfo.setText(orderLabel);
 
         createNewCone();
     }
