@@ -3,7 +3,7 @@ package ch.fhnw.assignment1.cartelgroup;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
-public class HelloController {
+public class IceCreamController {
     @FXML
     private Label welcomeText;
 
